@@ -45,6 +45,7 @@ public class APE4_Grafos {
             nodos.put(id, new Nodo(id, nombre));
             // Inicializar la lista de aristas de este nodo como vacía
             adyacencia.put(id, new ArrayList<>());
+
         }
 
         // ═══════════════════════════════════
@@ -75,27 +76,22 @@ public class APE4_Grafos {
             // Camino inicial
             List<String> caminoInicial = new ArrayList<>();
 
-            // TODO:
             // Agregar nodo inicio al camino inicial
+            caminoInicial.add(inicio);
 
-
-            // TODO:
             // Agregar caminoInicial a la cola
+            cola.add(caminoInicial);
 
-
-            // TODO:
             // Marcar inicio como visitado
-
+            visitados.add(inicio);
 
             while (!cola.isEmpty()) {
 
-                // TODO:
-                // Obtener el primer camino de la cola
-
+                // Obtener el primer camino de la cola (FIFO)
+                List<String> camino = cola.poll();
 
                 // Nodo actual
-                String actual =
-                        camino.get(camino.size() - 1);
+                String actual = camino.get(camino.size() - 1);
 
                 // Si llegamos al destino
                 if (actual.equals(fin)) {
@@ -105,100 +101,96 @@ public class APE4_Grafos {
                 // Recorrer vecinos
                 for (Arista arista : adyacencia.get(actual)) {
 
-                    // TODO:
                     // Verificar si el vecino NO fue visitado
+                    if (!visitados.contains(arista.destino)) {
 
-
-                        // TODO:
                         // Marcar vecino como visitado
-
+                        visitados.add(arista.destino);
 
                         // Crear nuevo camino
-                        List<String> nuevoCamino =
-                                new ArrayList<>(camino);
+                        List<String> nuevoCamino = new ArrayList<>(camino);
 
-                        // TODO:
                         // Agregar vecino al nuevo camino
+                        nuevoCamino.add(arista.destino);
 
-
-                        // TODO:
-                        // Agregar nuevoCamino a la cola
+                        // Agregar nuevoCamino a la cola para explorar después
+                        cola.add(nuevoCamino);
 
                     }
                 }
             }
 
-        return null;
-    }
-
-    // ═══════════════════════════════════
-    // TODO 4 — Dijkstra
-    // Ruta con menor distancia
-    // ═══════════════════════════════════
-    public List<String> dijkstra(String inicio, String fin) {
-
-        Map<String, Integer> distancias = new HashMap<>();
-
-        Map<String, String> anteriores = new HashMap<>();
-
-        PriorityQueue<String> cola = new PriorityQueue<>(
-                Comparator.comparingInt(
-                        distancias::get));
-
-        // Inicializar distancias
-        for (String nodo : nodos.keySet()) {
-
-            // TODO:
-            // Inicializar distancia infinita
-
+            return null;
         }
 
-        // TODO:
-        // Distancia del inicio = 0
+        // ═══════════════════════════════════
+        // TODO 4 — Dijkstra
+        // Ruta con menor distancia
+        // ═══════════════════════════════════
+        public List<String> dijkstra(String inicio, String fin) {
 
-        // TODO:
-        // Agregar inicio a la cola
+            Map<String, Integer> distancias = new HashMap<>();
 
-        while (!cola.isEmpty()) {
+            Map<String, String> anteriores = new HashMap<>();
 
-            // TODO:
-            // Obtener nodo con menor distancia
+            PriorityQueue<String> cola = new PriorityQueue<>(
+                    Comparator.comparingInt(
+                            distancias::get));
 
-            for (Arista arista : adyacencia.get(actual)) {
-
-                // TODO:
-                // Calcular nueva distancia
-
-                // TODO:
-                // Verificar si nuevaDistancia es menor
+            // Inicializar distancias
+            for (String nodo : nodos.keySet()) {
 
                 // TODO:
-                // Actualizar distancia
-
-                // TODO:
-                // Guardar nodo anterior
-
-                // TODO:
-                // Agregar vecino a la cola
+                // Inicializar distancia infinita
 
             }
-        }
-    }
 
-    // Reconstruir camino
-    List<String> camino = new ArrayList<>();
+            // TODO:
+            // Distancia del inicio = 0
+
+            // TODO:
+            // Agregar inicio a la cola
+
+            while (!cola.isEmpty()) {
+
+                // TODO:
+                // Obtener nodo con menor distancia
+
+                for (Arista arista : adyacencia.get(actual)) {
+
+                    // TODO:
+                    // Calcular nueva distancia
+
+                    // TODO:
+                    // Verificar si nuevaDistancia es menor
+
+                    // TODO:
+                    // Actualizar distancia
+
+                    // TODO:
+                    // Guardar nodo anterior
+
+                    // TODO:
+                    // Agregar vecino a la cola
+
+                }
+            }
+        }
+
+        // Reconstruir camino
+        List<String> camino = new ArrayList<>();
 
     String actual = fin;
 
-    while(actual!=null)
-    {
+        while(actual!=null)
+        {
 
-        camino.add(0, actual);
+            camino.add(0, actual);
 
-        actual = anteriores.get(actual);
-    }
+            actual = anteriores.get(actual);
+        }
 
-    return camino;
+        return camino;
     }
 
     // ═══════════════════════════════════
@@ -206,28 +198,27 @@ public class APE4_Grafos {
     // ═══════════════════════════════════
     public void mostrarRuta(List<String> ruta) {
 
-            if (ruta == null) {
-                System.out.println("No existe ruta");
-                return;
-            }
-
-            for (int i = 0; i < ruta.size(); i++) {
-
-                String idNodo = ruta.get(i);
-
-                Nodo nodo = nodos.get(idNodo);
-
-                System.out.print(
-                    nodo.nombre + " (" + nodo.id + ")"
-                );
-
-                if (i < ruta.size() - 1) {
-                    System.out.print(" -> ");
-                }
-            }
-
-            System.out.println();
+        if (ruta == null) {
+            System.out.println("No existe ruta");
+            return;
         }
+
+        for (int i = 0; i < ruta.size(); i++) {
+
+            String idNodo = ruta.get(i);
+
+            Nodo nodo = nodos.get(idNodo);
+
+            System.out.print(
+                    nodo.nombre + " (" + nodo.id + ")");
+
+            if (i < ruta.size() - 1) {
+                System.out.print(" -> ");
+            }
+        }
+
+        System.out.println();
+    }
 
     }
 
@@ -263,15 +254,13 @@ public class APE4_Grafos {
 
         System.out.println("===== BFS =====");
 
-        List<String> rutaBFS =
-                grafo.bfs("uta", "estadio");
+        List<String> rutaBFS = grafo.bfs("uta", "estadio");
 
         grafo.mostrarRuta(rutaBFS);
 
         System.out.println("\n===== DIJKSTRA =====");
 
-        List<String> rutaDijkstra =
-                grafo.dijkstra("uta", "estadio");
+        List<String> rutaDijkstra = grafo.dijkstra("uta", "estadio");
 
         grafo.mostrarRuta(rutaDijkstra);
     }
