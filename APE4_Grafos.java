@@ -41,10 +41,10 @@ public class APE4_Grafos {
         // Agregar nodo al grafo
         // ═══════════════════════════════════
         public void agregarNodo(String id, String nombre) {
-
-            // COMPLETE AQUÍ
-
-
+            // Crear el nodo con su id y nombre
+            nodos.put(id, new Nodo(id, nombre));
+            // Inicializar la lista de aristas de este nodo como vacía
+            adyacencia.put(id, new ArrayList<>());
         }
 
         // ═══════════════════════════════════
@@ -54,7 +54,6 @@ public class APE4_Grafos {
         public void agregarArista(String origen, String destino, int peso) {
 
             // COMPLETE AQUÍ
-
 
         }
 
@@ -126,95 +125,83 @@ public class APE4_Grafos {
                 }
             }
 
-            return null;
-        }
+        return null;
+    }
 
-        // ═══════════════════════════════════
-        // TODO 4 — Dijkstra
-        // Ruta con menor distancia
-        // ═══════════════════════════════════
-        public List<String> dijkstra(String inicio, String fin) {
+    // ═══════════════════════════════════
+    // TODO 4 — Dijkstra
+    // Ruta con menor distancia
+    // ═══════════════════════════════════
+    public List<String> dijkstra(String inicio, String fin) {
 
-            Map<String, Integer> distancias =
-                    new HashMap<>();
+        Map<String, Integer> distancias = new HashMap<>();
 
-            Map<String, String> anteriores =
-                    new HashMap<>();
+        Map<String, String> anteriores = new HashMap<>();
 
-            PriorityQueue<String> cola =
-                    new PriorityQueue<>(
-                            Comparator.comparingInt(
-                                    distancias::get
-                            )
-                    );
+        PriorityQueue<String> cola = new PriorityQueue<>(
+                Comparator.comparingInt(
+                        distancias::get));
 
-            // Inicializar distancias
-            for (String nodo : nodos.keySet()) {
-
-                // TODO:
-                // Inicializar distancia infinita
-
-
-            }
+        // Inicializar distancias
+        for (String nodo : nodos.keySet()) {
 
             // TODO:
-            // Distancia del inicio = 0
+            // Inicializar distancia infinita
 
-
-            // TODO:
-            // Agregar inicio a la cola
-
-
-            while (!cola.isEmpty()) {
-
-                // TODO:
-                // Obtener nodo con menor distancia
-
-
-                for (Arista arista : adyacencia.get(actual)) {
-
-                    // TODO:
-                    // Calcular nueva distancia
-
-
-                    // TODO:
-                    // Verificar si nuevaDistancia es menor
-
-
-                        // TODO:
-                        // Actualizar distancia
-
-
-                        // TODO:
-                        // Guardar nodo anterior
-
-
-                        // TODO:
-                        // Agregar vecino a la cola
-
-                    }
-                }
-            }
-
-            // Reconstruir camino
-            List<String> camino = new ArrayList<>();
-
-            String actual = fin;
-
-            while (actual != null) {
-
-                camino.add(0, actual);
-
-                actual = anteriores.get(actual);
-            }
-
-            return camino;
         }
 
-        // ═══════════════════════════════════
-        // Mostrar resultado
-        // ═══════════════════════════════════
-        public void mostrarRuta(List<String> ruta) {
+        // TODO:
+        // Distancia del inicio = 0
+
+        // TODO:
+        // Agregar inicio a la cola
+
+        while (!cola.isEmpty()) {
+
+            // TODO:
+            // Obtener nodo con menor distancia
+
+            for (Arista arista : adyacencia.get(actual)) {
+
+                // TODO:
+                // Calcular nueva distancia
+
+                // TODO:
+                // Verificar si nuevaDistancia es menor
+
+                // TODO:
+                // Actualizar distancia
+
+                // TODO:
+                // Guardar nodo anterior
+
+                // TODO:
+                // Agregar vecino a la cola
+
+            }
+        }
+    }
+
+    // Reconstruir camino
+    List<String> camino = new ArrayList<>();
+
+    String actual = fin;
+
+    while(actual!=null)
+    {
+
+        camino.add(0, actual);
+
+        actual = anteriores.get(actual);
+    }
+
+    return camino;
+    }
+
+    // ═══════════════════════════════════
+    // Mostrar resultado
+    // ═══════════════════════════════════
+    public void mostrarRuta(List<String> ruta) {
 
             if (ruta == null) {
                 System.out.println("No existe ruta");
@@ -238,6 +225,7 @@ public class APE4_Grafos {
 
             System.out.println();
         }
+
     }
 
     // ═══════════════════════════════════════
@@ -284,4 +272,4 @@ public class APE4_Grafos {
 
         grafo.mostrarRuta(rutaDijkstra);
     }
-} 
+}
