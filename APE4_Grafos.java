@@ -66,60 +66,42 @@ public class APE4_Grafos {
         // Ruta con menos paradas
         // ═══════════════════════════════════
         public List<String> bfs(String inicio, String fin) {
-
             // Cola para recorrer niveles
             Queue<List<String>> cola = new LinkedList<>();
-
             // Nodos visitados
             Set<String> visitados = new HashSet<>();
-
             // Camino inicial
             List<String> caminoInicial = new ArrayList<>();
-
             // Agregar nodo inicio al camino inicial
             caminoInicial.add(inicio);
-
             // Agregar caminoInicial a la cola
             cola.add(caminoInicial);
-
             // Marcar inicio como visitado
             visitados.add(inicio);
-
             while (!cola.isEmpty()) {
-
                 // Obtener el primer camino de la cola (FIFO)
                 List<String> camino = cola.poll();
-
                 // Nodo actual
                 String actual = camino.get(camino.size() - 1);
-
                 // Si llegamos al destino
                 if (actual.equals(fin)) {
                     return camino;
                 }
-
                 // Recorrer vecinos
                 for (Arista arista : adyacencia.get(actual)) {
-
                     // Verificar si el vecino NO fue visitado
                     if (!visitados.contains(arista.destino)) {
-
                         // Marcar vecino como visitado
                         visitados.add(arista.destino);
-
                         // Crear nuevo camino
                         List<String> nuevoCamino = new ArrayList<>(camino);
-
                         // Agregar vecino al nuevo camino
                         nuevoCamino.add(arista.destino);
-
                         // Agregar nuevoCamino a la cola para explorar después
                         cola.add(nuevoCamino);
-
                     }
                 }
             }
-
             return null;
         }
 
