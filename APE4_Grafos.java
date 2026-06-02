@@ -53,7 +53,10 @@ public class APE4_Grafos {
         // ═══════════════════════════════════
         public void agregarArista(String origen, String destino, int peso) {
 
-            // COMPLETE AQUÍ
+            // Conexión de origen hacia destino
+            adyacencia.get(origen).add(new Arista(destino, peso));
+            // Conexión de destino hacia origen (grafo no dirigido)
+            adyacencia.get(destino).add(new Arista(origen, peso));
 
         }
 
