@@ -140,85 +140,87 @@ public class APE4_Grafos {
             // Inicializar distancias
             for (String nodo : nodos.keySet()) {
 
-                // TODO:
-                // Inicializar distancia infinita
+                distancias.put(nodo, Integer.MAX_VALUE);
 
             }
 
-            // TODO:
-            // Distancia del inicio = 0
+            // Distancia del nodo inicio = 0 (ya estamos aquí)
+            distancias.put(inicio, 0);
 
-            // TODO:
-            // Agregar inicio a la cola
+            // Agregar inicio a la cola de prioridad
+            cola.add(inicio);
 
             while (!cola.isEmpty()) {
 
-                // TODO:
-                // Obtener nodo con menor distancia
+                // Obtener el nodo con menor distancia acumulada
+                String actual = cola.poll();
+
+                // Si llegamos al destino, podemos detenernos
+                if (actual.equals(fin))
+                    break;
 
                 for (Arista arista : adyacencia.get(actual)) {
 
-                    // TODO:
-                    // Calcular nueva distancia
+                    // Calcular nueva distancia: distancia actual + peso de la arista
+                    int nuevaDistancia = distancias.get(actual) + arista.peso;
 
-                    // TODO:
-                    // Verificar si nuevaDistancia es menor
+                    // Verificar si nuevaDistancia es MENOR que la conocida
+                    if (nuevaDistancia < distancias.get(arista.destino)) {
 
-                    // TODO:
-                    // Actualizar distancia
+                        // Actualizar distancia con el valor menor encontrado
+                        distancias.put(arista.destino, nuevaDistancia);
 
-                    // TODO:
-                    // Guardar nodo anterior
+                        // Guardar nodo anterior (para reconstruir el camino)
+                        anteriores.put(arista.destino, actual);
 
-                    // TODO:
-                    // Agregar vecino a la cola
+                        // Agregar vecino a la cola para procesarlo
+                        cola.add(arista.destino);
 
+                    }
                 }
             }
-        }
 
-        // Reconstruir camino
-        List<String> camino = new ArrayList<>();
+            // Reconstruir camino
+            List<String> camino = new ArrayList<>();
 
-    String actual = fin;
+            String actual = fin;
 
-        while(actual!=null)
-        {
+            while (actual != null) {
 
-            camino.add(0, actual);
+                camino.add(0, actual);
 
-            actual = anteriores.get(actual);
-        }
-
-        return camino;
-    }
-
-    // ═══════════════════════════════════
-    // Mostrar resultado
-    // ═══════════════════════════════════
-    public void mostrarRuta(List<String> ruta) {
-
-        if (ruta == null) {
-            System.out.println("No existe ruta");
-            return;
-        }
-
-        for (int i = 0; i < ruta.size(); i++) {
-
-            String idNodo = ruta.get(i);
-
-            Nodo nodo = nodos.get(idNodo);
-
-            System.out.print(
-                    nodo.nombre + " (" + nodo.id + ")");
-
-            if (i < ruta.size() - 1) {
-                System.out.print(" -> ");
+                actual = anteriores.get(actual);
             }
+
+            return camino;
         }
 
-        System.out.println();
-    }
+        // ═══════════════════════════════════
+        // Mostrar resultado
+        // ═══════════════════════════════════
+        public void mostrarRuta(List<String> ruta) {
+
+            if (ruta == null) {
+                System.out.println("No existe ruta");
+                return;
+            }
+
+            for (int i = 0; i < ruta.size(); i++) {
+
+                String idNodo = ruta.get(i);
+
+                Nodo nodo = nodos.get(idNodo);
+
+                System.out.print(
+                        nodo.nombre + " (" + nodo.id + ")");
+
+                if (i < ruta.size() - 1) {
+                    System.out.print(" -> ");
+                }
+            }
+
+            System.out.println();
+        }
 
     }
 
