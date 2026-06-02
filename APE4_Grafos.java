@@ -110,70 +110,45 @@ public class APE4_Grafos {
         // Ruta con menor distancia
         // ═══════════════════════════════════
         public List<String> dijkstra(String inicio, String fin) {
-
             Map<String, Integer> distancias = new HashMap<>();
-
             Map<String, String> anteriores = new HashMap<>();
-
             PriorityQueue<String> cola = new PriorityQueue<>(
-                    Comparator.comparingInt(
-                            distancias::get));
-
+                    Comparator.comparingInt(distancias::get));
             // Inicializar distancias
             for (String nodo : nodos.keySet()) {
-
                 distancias.put(nodo, Integer.MAX_VALUE);
-
             }
-
             // Distancia del nodo inicio = 0 (ya estamos aquí)
             distancias.put(inicio, 0);
-
             // Agregar inicio a la cola de prioridad
             cola.add(inicio);
-
             while (!cola.isEmpty()) {
-
                 // Obtener el nodo con menor distancia acumulada
                 String actual = cola.poll();
-
                 // Si llegamos al destino, podemos detenernos
                 if (actual.equals(fin))
                     break;
-
                 for (Arista arista : adyacencia.get(actual)) {
-
                     // Calcular nueva distancia: distancia actual + peso de la arista
                     int nuevaDistancia = distancias.get(actual) + arista.peso;
-
                     // Verificar si nuevaDistancia es MENOR que la conocida
                     if (nuevaDistancia < distancias.get(arista.destino)) {
-
                         // Actualizar distancia con el valor menor encontrado
                         distancias.put(arista.destino, nuevaDistancia);
-
                         // Guardar nodo anterior (para reconstruir el camino)
                         anteriores.put(arista.destino, actual);
-
                         // Agregar vecino a la cola para procesarlo
                         cola.add(arista.destino);
-
                     }
                 }
             }
-
             // Reconstruir camino
             List<String> camino = new ArrayList<>();
-
             String actual = fin;
-
             while (actual != null) {
-
                 camino.add(0, actual);
-
                 actual = anteriores.get(actual);
             }
-
             return camino;
         }
 
